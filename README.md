@@ -13,7 +13,7 @@ npm install telegram-api-vue
 ```
 import telegramApi from './plugins/telegram';
 ```
-
+ 
 3) Create file ```telegram.js``` in ```plugins``` folder
 
 4) Put config in created file ```telegram.js```
