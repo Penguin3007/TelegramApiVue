@@ -13,7 +13,7 @@ npm install telegram-api-vue
 ```
 import telegramApi from './plugins/telegram';
 ```
- 
+
 3) Create file ```telegram.js``` in ```plugins``` folder
 
 4) Put config in created file ```telegram.js```
@@ -46,12 +46,12 @@ telegramApi.setConfig({
   }
 });
 
-export default telegramApi;
+Vue.prototype.$telegramApi = telegramApi;
 ```
 
 5) Check your status
 ```
-telegramApi.getUserInfo().then(function(user) {
+$telegramApi.getUserInfo().then(function(user) {
     if (user.id) {
         // You have already signed in
     } else {
