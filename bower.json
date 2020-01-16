@@ -1,0 +1,10 @@
+{
+  "name": "telegram-api",
+  "license": "GPL-3.0",
+  "ignore": [
+    "example",
+    "src",
+    "gulpfile.js",
+    "package.json"
+  ]
+}
