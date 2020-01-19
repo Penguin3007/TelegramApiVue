@@ -4,6 +4,10 @@ telegramApi.setConfig({
         hash: 'cf2f9913563b63810ca02d77d5d44f92',
         version: telegramApi.VERSION
     },
+    modes: {
+        debug: false,
+        test: false
+    },
     server: {
         test: [
             {
@@ -114,7 +118,36 @@ angular.module('myApp', [])
             } else {
                 angular.extend($scope.info, user);
                 $scope.visible.info = true;
-
+                telegramApi.getDialogs(0, 10).then(function (dialogResult) {
+                    console.log(dialogResult);
+                    dialogResult.result.dialogs.map(function (dialog) {
+                        telegramApi.invokeApi('messages.getPeerDialogs', {
+                            peers: [{
+                                _:'inputDialogPeer',
+                                peer: dialog.peer
+                            }]
+                        }).then(function (updates) {
+                            console.log(updates);
+                        });
+                        // telegramApi.invokeApi('channels.getMessages', {
+                        //     channel: {
+                        //         _: 'inputChannelFromMessage',
+                        //         peer: {
+                        //             _: 'inputPeerSelf'
+                        //         },
+                        //         msg_id: dialog.read_inbox_max_id,
+                        //         channel_id: dialog.peer.channel_id || dialog.peer.user_id
+                        //     },
+                        //     id: [{
+                        //         _: 'inputMessageID',
+                        //         id: dialog.top_message,
+                        //
+                        //     }]
+                        // }).then(function (updates) {
+                        //     console.log(updates);
+                        // });
+                    });
+                });
                 telegramApi.getUserPhoto('base64', 'small').then(function (base64) {
                     $scope.info.photoBase64 = base64;
                     $scope.update();
