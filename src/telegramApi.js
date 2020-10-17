@@ -71,10 +71,11 @@ function TelegramApiModule(MtpApiManager, AppPeersManager, MtpApiFileManager, Ap
     function sendCode(phone_number) {
         return MtpApiManager.invokeApi('auth.sendCode', {
             phone_number: phone_number,
-            sms_type: 5,
             api_id: Config.App.id,
             api_hash: Config.App.hash,
-            lang_code: navigator.language || 'en'
+            settings: {
+                _: 'codeSettings'
+            }
         }, options);
     }
 
@@ -750,14 +751,16 @@ function TelegramApiModule(MtpApiManager, AppPeersManager, MtpApiFileManager, Ap
         return MtpApiManager.invokeApi('auth.checkPhone', {phone_number: phone_number});
     }
 
-    function getDialogs(offset, limit) {
+    function getDialogs(offset, limit, exclude_pinned) {
         offset = offset || 0;
         limit = limit || 50;
+        exclude_pinned = exclude_pinned || false;
 
         return MtpApiManager.invokeApi('messages.getDialogs', {
             offset_peer: AppPeersManager.getInputPeerByID(0),
             offset_date: offset,
-            limit: limit
+            limit: limit,
+            exclude_pinned: exclude_pinned
         }).then(function (dialogsResult) {
             AppUsersManager.saveApiUsers(dialogsResult.users);
             AppChatsManager.saveApiChats(dialogsResult.chats);

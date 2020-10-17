@@ -185,7 +185,7 @@ function MtpApiManagerModule(MtpSingleInstanceService, MtpNetworkerFactory, MtpA
                         }, rejectPromise);
                     }
                     else if (error.code == 303) {
-                        var newDcID = error.type.match(/^(PHONE_MIGRATE_|NETWORK_MIGRATE_|USER_MIGRATE_)(\d+)/)[2];
+                        var newDcID = error.type.match(/^(PHONE_MIGRATE_|NETWORK_MIGRATE_|USER_MIGRATE_|FILE_MIGRATE_)(\d+)/)[2];
                         if (newDcID != dcID) {
                             if (options.dcID) {
                                 options.dcID = newDcID;

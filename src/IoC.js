@@ -44,3 +44,4 @@ builder.init();
 var telegramApi = builder.resolve('TelegramApi');
 
 module.exports = telegramApi;
+//window.telegramApi = telegramApi;
