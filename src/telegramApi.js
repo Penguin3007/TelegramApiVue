@@ -71,10 +71,11 @@ function TelegramApiModule(MtpApiManager, AppPeersManager, MtpApiFileManager, Ap
     function sendCode(phone_number) {
         return MtpApiManager.invokeApi('auth.sendCode', {
             phone_number: phone_number,
-            sms_type: 5,
             api_id: Config.App.id,
             api_hash: Config.App.hash,
-            lang_code: navigator.language || 'en'
+            settings: {
+                _: 'codeSettings'
+            }
         }, options);
     }
 
